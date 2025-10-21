@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout code') {
             steps {
-                git branch: 'master', url: 'https://github.com/AhmedBouafif/TPSpringBoot'
+                git branch: 'main', url: 'https://github.com/AhmedBouafif/TPSpringBoot'
             }
         }
         stage('Compile, test code, package in war file and store it in maven repo') {
