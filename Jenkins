@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {
+        maven 'M2_HOME'
+    }
+    stages {
+        stage('Checkout code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/AhmedBouafif/TPSpringBoot'
+            }
+        }
+        stage('Compile, test code, package in war file and store it in maven repo') {
+            steps {
+                sh 'mvn clean install'
+            }
+            post {
+                success {
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(installationName: 'MySonarQubeServer', credentialsId: 'Valar#8morghulis') {
+                   sh 'mvn sonar:sonar -Dsonar.projectKey=country-service -Dsonar.projectName=country-service -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_5df97ee42b358bbe3189250f7170362566e428c3'
+                    
+                    
+                }
+            }
+        }
+    }
+}
