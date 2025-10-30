@@ -1,0 +1,7 @@
+services:
+  country-service:
+    image: my-compte-service:v1
+    ports:
+      - 8080:8082
+    expose:
+      - 8082
