@@ -22,7 +22,7 @@
   - name: Build Docker image
     docker_image:
       build:
-        path : "{{dockerfile_path }}"
+        path: "{{ dockerfile_path }}"
       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       source: build
       state: present
