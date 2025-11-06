@@ -23,7 +23,7 @@
     docker_image:
       build:
         path : "{{dockerfile_path }}"
-      name: "{{ docker_registry_username }}/{{ image_name }}: {{ image_tag }}"
+      name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       source: build
       state: present
       tag: "{{ image_tag }}"
@@ -36,7 +36,7 @@
 
   - name: Pull Docker image (optional, for verification or on target nodes)
     docker_image:
-      name: "{{ docker_registry_username }}/{{ image_name }}: {{ image_tag }}"
+      name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       tag: "{{ image_tag }}"
       source: pull
 
