@@ -26,6 +26,12 @@
 		<tag/>
 		<url/>
 	</scm>
+    <properties>
+        <java.version>21</java.version>
+        <sonar.projectKey>gestion_bib</sonar.projectKey>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.login>squ_c5b0e50b3efc4edb546ad6ef78a1d8234d5ae56f</sonar.login>
+    </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springdoc</groupId>
