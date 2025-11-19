@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+piVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-country-service
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: my-country-service-container
-          image: ahmed403/my-compte-service:v1
+          image: "{{ DOCKER_IMAGE }}"  # ← Changé de ahmed403/my-compte-service:v1 à {{ DOCKER_IMAGE }}
           ports:
           - containerPort: 8082
