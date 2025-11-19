@@ -39,7 +39,7 @@
       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       tag: "{{ image_tag }}"
       source: pull
- - name: Create monitoring namespace
+  - name: Create monitoring namespace
     kubernetes.core.k8s:
       state: present
       definition:
