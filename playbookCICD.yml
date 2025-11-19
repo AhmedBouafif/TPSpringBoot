@@ -39,25 +39,50 @@
       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       tag: "{{ image_tag }}"
       source: pull
-  - name: Ajouter le repository Helm Prometheus
-    kubernetes.core.helm_repository:
-      name: prometheus-community
-      repo_url: https://prometheus-community.github.io/helm-charts
+ - name: Create monitoring namespace
+    kubernetes.core.k8s:
       state: present
-  
-  - name: Mettre à jour les repositories Helm
-    command: helm repo update
-    changed_when: false
-  
-  - name: Déployer la stack Prometheus et Grafana via Helm
-    kubernetes.core.helm:
-      name: prometheus-stack
-      chart_ref: prometheus-community/kube-prometheus-stack
-      release_namespace: monitoring
-      create_namespace: true
-      state: present
+      definition:
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: monitoring
       kubeconfig: config
 
+  - name: Deploy Prometheus ConfigMap
+    kubernetes.core.k8s:
+      state: present
+      namespace: monitoring
+      src: prometheus-config.yaml
+      kubeconfig: config
+
+  - name: Deploy Prometheus Deployment
+    kubernetes.core.k8s:
+      state: present
+      namespace: monitoring
+      src: prometheus-deployment.yaml
+      kubeconfig: config
+
+  - name: Deploy Prometheus Service
+    kubernetes.core.k8s:
+      state: present
+      namespace: monitoring
+      src: prometheus-service.yaml
+      kubeconfig: config
+
+  - name: Deploy Grafana Deployment
+    kubernetes.core.k8s:
+      state: present
+      namespace: monitoring
+      src: grafana-deployment.yaml
+      kubeconfig: config
+
+  - name: Deploy Grafana Service
+    kubernetes.core.k8s:
+      state: present
+      namespace: monitoring
+      src: grafana-service.yaml
+      kubeconfig: config
   - name: Apply Kubernetes Deployment
     kubernetes.core.k8s:
       state: present
