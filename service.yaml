@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: my-country-service
+  # AJOUT DES ANNOTATIONS PROMETHEUS
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8082" # Port de votre application
 spec:
   type: NodePort
   selector:
@@ -11,3 +16,4 @@ spec:
     targetPort: 8082
     nodePort: 30008
     protocol: TCP
+
