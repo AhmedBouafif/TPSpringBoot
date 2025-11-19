@@ -15,4 +15,4 @@ data:
       - job_name: 'springboot-app'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['my-compte-service.jenkins.svc.cluster.local:8082']
+          - targets: ['my-country-service.jenkins.svc.cluster.local:8082']
