@@ -87,7 +87,7 @@
     kubernetes.core.k8s:
       state: present
       namespace: jenkins
-      src: my-deployment.yaml
+      definition: "{{ lookup('template', 'my-deployment.yaml') }}"
       kubeconfig: config # Path to your kubeconfig file
 
   - name: Apply Kubernetes Service
