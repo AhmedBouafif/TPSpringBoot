@@ -39,6 +39,14 @@
       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
       tag: "{{ image_tag }}"
       source: pull
+  - name: Déployer la stack Prometheus et Grafana via Helm
+    kubernetes.core.helm:
+      name: prometheus-stack
+      chart_ref: prometheus-community/kube-prometheus-stack
+      release_namespace: monitoring
+      create_namespace: true
+      state: present
+      kubeconfig: config   
 
   - name: Apply Kubernetes Deployment
     kubernetes.core.k8s:
